@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Книга рекордов | МБОУ СОШ №26</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -24,6 +25,16 @@
             --card-bg: #ffffff;
             --section-bg: #fafafa;
             --border-radius: 8px;
+            --age-tag-bg: #e0e0e5;
+        }
+        
+        body.dark-theme {
+            --light-color: #121212;
+            --dark-color: #f5f5f7;
+            --section-bg: #1e1e1e;
+            --card-bg: #1d1d1f;
+            --gray-color: #b0b0b5;
+            --age-tag-bg: #3a3a3e;
         }
         
         body {
@@ -35,21 +46,13 @@
             transition: background-color 0.3s, color 0.3s;
         }
         
-        body.dark-theme {
-            --light-color: #121212;
-            --dark-color: #f5f5f7;
-            --section-bg: #1e1e1e;
-            --card-bg: #1d1d1f;
-            --gray-color: #8e8e93;
-        }
-        
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 40px;
         }
         
-        /* Минималистичный хедер */
+        /* Минималистичный хедер (без изменений) */
         .main-header {
             position: fixed;
             top: 0;
@@ -80,18 +83,24 @@
             align-items: center;
             gap: 12px;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: transform 0.2s ease;
         }
         
         .logo:hover {
-            opacity: 0.8;
+            opacity: 1;
+            transform: translateY(-1px);
         }
         
         .logo-icon {
             font-size: 24px;
             color: var(--primary-color);
+            margin-top: 6px;
         }
         
+        .site-logo {
+            height: 50px;
+        }
+
         .logo-text h1 {
             font-size: 20px;
             font-weight: 600;
@@ -146,7 +155,6 @@
             color: var(--primary-color);
         }
         
-        /* Анимация для кнопки темы */
         .theme-toggle {
             background: none;
             border: none;
@@ -173,12 +181,8 @@
         }
         
         @keyframes rotate360 {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .theme-toggle:hover {
@@ -195,7 +199,6 @@
             color: var(--primary-color);
         }
         
-        /* Мобильное меню - черный фон с белым текстом в темной теме */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -229,7 +232,7 @@
         .mobile-nav {
             display: none;
             position: fixed;
-            top: 80px;
+            top: 90px;
             left: 0;
             width: 100%;
             background-color: var(--card-bg);
@@ -242,7 +245,6 @@
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
         
-        /* В темной теме меню будет черным с белым текстом */
         .dark-theme .mobile-nav {
             background-color: #121212;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -273,7 +275,6 @@
             transition: all 0.2s;
         }
         
-        /* В темной теме текст белый */
         .dark-theme .mobile-nav-button {
             color: #f5f5f7;
         }
@@ -290,7 +291,11 @@
         
         /* Герой-секция */
         .hero-section {
-            padding: 160px 0 120px;
+            min-height: 100vh;
+            padding-top: 120px;
+            padding-bottom: 40px;
+            display: flex;
+            align-items: center;
             background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
             position: relative;
             overflow: hidden;
@@ -336,7 +341,6 @@
             margin-right: auto;
         }
         
-        /* Обновлённая статистика в виде окошек */
         .school-info {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -354,6 +358,7 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
         
         .dark-theme .info-card {
@@ -372,38 +377,14 @@
             transition: opacity 0.3s;
         }
         
-        /* Цветовая гамма под основной дизайн */
-        .info-card:nth-child(1) {
-            --card-color: #00bdad;
-        }
-        
-        .info-card:nth-child(1)::before {
-            background: var(--primary-color);
-        }
-        
-        .info-card:nth-child(2) {
-            --card-color: #ff7a33;
-        }
-        
-        .info-card:nth-child(2)::before {
-            background: #ff7a33;
-        }
-        
-        .info-card:nth-child(3) {
-            --card-color: #00a396;
-        }
-        
-        .info-card:nth-child(3)::before {
-            background: #00a396;
-        }
-        
-        .info-card:nth-child(4) {
-            --card-color: #ff8c4d;
-        }
-        
-        .info-card:nth-child(4)::before {
-            background: #ff8c4d;
-        }
+        .info-card:nth-child(1) { --card-color: #00bdad; }
+        .info-card:nth-child(1)::before { background: var(--primary-color); }
+        .info-card:nth-child(2) { --card-color: #ff7a33; }
+        .info-card:nth-child(2)::before { background: #ff7a33; }
+        .info-card:nth-child(3) { --card-color: #00a396; }
+        .info-card:nth-child(3)::before { background: #00a396; }
+        .info-card:nth-child(4) { --card-color: #ff8c4d; }
+        .info-card:nth-child(4)::before { background: #ff8c4d; }
         
         .info-card:hover {
             transform: translateY(-8px);
@@ -445,27 +426,6 @@
             color: #8e8e93;
         }
         
-        .dark-theme .info-card:hover .info-label {
-            color: var(--primary-color);
-        }
-        
-        .info-card:hover .info-label {
-            color: var(--dark-color);
-        }
-        
-        /* Особый стиль для самой популярной категории */
-        #top-category {
-            font-size: 22px;
-            font-weight: 700;
-            min-height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            word-break: break-word;
-            line-height: 1.2;
-        }
-        
-        /* Иконки для карточек статистики */
         .info-icon {
             font-size: 24px;
             color: var(--card-color);
@@ -484,6 +444,7 @@
             padding: 80px 0;
             background-color: var(--section-bg);
             transition: background-color 0.3s;
+            scroll-margin-top: 100px;
         }
         
         .section-title {
@@ -569,7 +530,6 @@
             padding: 4px;
         }
         
-        /* Оптимизация для мобильных устройств */
         .filter-buttons.mobile-scroll {
             display: flex;
             flex-wrap: nowrap;
@@ -607,6 +567,10 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
+        .small-text {
+            font-size: 12px;
+            padding: 12px 14px;
+        }
         
         .dark-theme .filter-btn {
             border-color: #424245;
@@ -628,12 +592,6 @@
             background-color: var(--secondary-color);
             color: white;
             border-color: var(--secondary-color);
-        }
-        
-        /* Исправление: убираем зеленую обводку при фокусе в темной теме на мобильных */
-        .dark-theme .filter-btn:focus {
-            outline: none;
-            box-shadow: none;
         }
         
         /* Сетка рекордов */
@@ -664,16 +622,6 @@
         .record-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-        }
-        
-        .record-class {
-            padding: 12px 24px;
-            color: white;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            background-color: var(--primary-color);
         }
         
         .record-content {
@@ -739,15 +687,73 @@
             font-weight: 500;
         }
         
-        .record-category-tag {
+        /* Теги (категория + возраст) */
+        .record-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .record-category-tag,
+        .record-age-tag {
             display: inline-block;
             padding: 4px 12px;
-            background-color: var(--secondary-color);
-            color: white;
             font-size: 12px;
             font-weight: 600;
             border-radius: 20px;
-            margin-top: 12px;
+            white-space: nowrap;
+        }
+        
+        .record-category-tag {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .record-age-tag {
+            background-color: var(--age-tag-bg);
+            color: var(--dark-color);
+        }
+        
+        .dark-theme .record-age-tag {
+            color: #f5f5f7;
+        }
+        
+        /* Кнопка "Загрузить ещё" */
+        .load-more-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .load-more-btn {
+            background: none;
+            border: 1px solid var(--gray-color);
+            color: var(--dark-color);
+            font-size: 16px;
+            font-weight: 500;
+            padding: 14px 36px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: transparent;
+        }
+        
+        .load-more-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background-color: rgba(0, 189, 173, 0.05);
+        }
+        
+        .dark-theme .load-more-btn {
+            border-color: #555;
+            color: #f5f5f7;
+        }
+        
+        .dark-theme .load-more-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background-color: rgba(0, 189, 173, 0.15);
         }
         
         /* Девиз школы */
@@ -805,6 +811,7 @@
             padding: 80px 0;
             background-color: var(--section-bg);
             transition: background-color 0.3s;
+            scroll-margin-top: 100px;
         }
         
         .about-school-content {
@@ -836,10 +843,6 @@
             color: #f5f5f7;
         }
         
-        .about-school-text:last-child {
-            margin-bottom: 0;
-        }
-        
         .about-school-highlight {
             color: var(--primary-color);
             font-weight: 600;
@@ -851,6 +854,7 @@
             color: white;
             padding: 60px 0 40px;
             transition: background-color 0.3s;
+            scroll-margin-top: 100px;
         }
         
         .dark-theme footer {
@@ -912,28 +916,6 @@
             font-size: 13px;
         }
         
-        /* Акцентный элемент с вторичным цветом */
-        .accent-color {
-            color: var(--secondary-color);
-        }
-        
-        .accent-bg {
-            background-color: var(--secondary-color);
-        }
-        
-        .accent-border {
-            border-color: var(--secondary-color);
-        }
-        
-        /* Утилиты */
-        .text-center {
-            text-align: center;
-        }
-        
-        .mb-40 {
-            margin-bottom: 40px;
-        }
-        
         /* Анимация появления */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -942,6 +924,17 @@
         
         .fade-in {
             animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .scroll-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .scroll-show {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
         
         /* Сообщение об отсутствии результатов */
@@ -971,7 +964,7 @@
             color: var(--gray-color);
         }
         
-        /* Медиа-запросы для мобильных устройств */
+        /* Медиа-запросы */
         @media (max-width: 1024px) {
             .school-info {
                 grid-template-columns: repeat(2, 1fr);
@@ -1016,7 +1009,7 @@
             }
             
             .hero-subtitle {
-                font-size: 16px;
+                display: none;
             }
             
             .section-title, .about-school-title {
@@ -1038,27 +1031,21 @@
             }
             
             .school-info {
-                grid-template-columns: 1fr;
-                gap: 16px;
-                margin-top: 40px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                margin-top: 32px;
             }
             
             .info-card {
-                padding: 24px 20px;
+                padding: 16px 12px;
             }
             
             .info-number {
-                font-size: 36px;
+                font-size: 26px;
             }
             
-            #top-category {
-                font-size: 20px;
-                min-height: 40px;
-            }
-            
-            .info-icon {
-                font-size: 20px;
-                margin-bottom: 12px;
+            .info-label {
+                font-size: 12px;
             }
             
             .nav-buttons {
@@ -1071,41 +1058,16 @@
             
             .hero-section {
                 padding: 140px 0 80px;
+                min-height: auto;
             }
             
             .records-section, .filters-section, .about-school-section, .motto-section {
                 padding: 60px 0;
             }
             
-            .record-card {
-                margin-bottom: 10px;
-            }
-            
-            .record-title {
-                font-size: 18px;
-            }
-            
-            .record-description {
+            .load-more-btn {
+                padding: 12px 28px;
                 font-size: 14px;
-            }
-            
-            .filter-btn {
-                padding: 10px 16px;
-                font-size: 13px;
-            }
-            
-            .search-input {
-                padding: 16px 20px;
-                font-size: 15px;
-            }
-            
-            .about-school-text {
-                font-size: 16px;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
             }
         }
         
@@ -1118,33 +1080,16 @@
                 font-size: 24px;
             }
             
-            .record-title {
-                font-size: 16px;
-            }
-            
             .filter-btn {
                 padding: 8px 12px;
                 font-size: 12px;
             }
             
-            .record-content {
-                padding: 20px;
-            }
-            
             .info-number {
-                font-size: 32px;
-            }
-            
-            #top-category {
-                font-size: 18px;
-            }
-            
-            .info-card {
-                padding: 20px 16px;
+                font-size: 22px;
             }
         }
         
-        /* Минималистичный скроллбар */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -1164,16 +1109,626 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-dark);
         }
+    /* ===== Аккуратный первый экран на всех устройствах ===== */
+
+.hero-section {
+    min-height: 100svh;
+    padding-top: 110px;
+    padding-bottom: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: clamp(34px, 4.8vw, 56px);
+    line-height: 1.08;
+    margin-bottom: 12px;
+}
+
+.hero-subtitle {
+    font-size: clamp(16px, 1.8vw, 20px);
+    margin-bottom: 36px;
+}
+
+.school-info {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 36px;
+}
+
+.info-card {
+    padding: 24px 16px;
+    min-width: 0;
+}
+
+.info-number {
+    font-size: clamp(28px, 3vw, 48px);
+    line-height: 1.05;
+    margin-bottom: 10px;
+    overflow-wrap: anywhere;
+}
+
+.info-label {
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+#top-category {
+    font-size: clamp(22px, 2.4vw, 36px);
+    line-height: 1.08;
+    overflow-wrap: anywhere;
+}
+
+/* Планшеты и небольшие ноутбуки */
+@media (max-width: 1024px) {
+    .hero-section {
+        min-height: 100svh;
+        padding-top: 105px;
+        padding-bottom: 20px;
+    }
+
+    .hero-title {
+        font-size: clamp(30px, 4.2vw, 44px);
+    }
+
+    .hero-subtitle {
+        margin-bottom: 28px;
+    }
+
+    .school-info {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-top: 28px;
+    }
+
+    .info-card {
+        padding: 18px 14px;
+    }
+
+    .info-number {
+        font-size: clamp(24px, 3vw, 32px);
+    }
+
+    #top-category {
+        font-size: clamp(20px, 2.8vw, 28px);
+    }
+}
+
+/* Телефоны */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 100svh;
+        padding-top: 96px;
+        padding-bottom: 16px;
+        align-items: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero-title {
+        font-size: clamp(24px, 7vw, 34px);
+        margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .school-info {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .info-card {
+        padding: 14px 10px;
+    }
+
+    .info-number {
+        font-size: clamp(18px, 5vw, 24px);
+        margin-bottom: 8px;
+    }
+
+    .info-label {
+        font-size: 11px;
+        line-height: 1.25;
+    }
+
+    #top-category {
+        font-size: clamp(16px, 4.6vw, 22px);
+        line-height: 1.05;
+    }
+}
+
+/* Очень узкие телефоны */
+    @media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .hero-section {
+        padding-top: 92px;
+        padding-bottom: 12px;
+    }
+
+    .school-info {
+        gap: 8px;
+    }
+
+    .info-card {
+        padding: 12px 8px;
+    }
+
+    .info-label {
+        font-size: 10px;
+    }
+
+    #top-category {
+        font-size: 15px;
+    }
+}
+/* финальная микро-правка высоты первого экрана */
+@media (min-width: 1025px) {
+    .hero-section {
+        padding-top: 96px;
+        padding-bottom: 12px;
+    }
+
+    .school-info {
+        margin-top: 24px;
+    }
+}
+.class-select-wrap {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.class-filter-select {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #d2d2d7;
+    border-radius: var(--border-radius);
+    background-color: var(--card-bg);
+    color: var(--dark-color);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.class-filter-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 189, 173, 0.1);
+}
+
+.dark-theme .class-filter-select {
+    border-color: #424245;
+    color: #f5f5f7;
+    background-color: #1d1d1f;
+}
+
+@media (max-width: 768px) {
+    .class-select-wrap {
+        max-width: 100%;
+    }
+
+    .class-filter-select {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+}/* ===== Улучшенный дизайн карточек рекордов ===== */
+
+.record-card {
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 18px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top right, rgba(0, 189, 173, 0.08), transparent 35%),
+        var(--card-bg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.record-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.record-card::after {
+    content: "\f091";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    font-size: 42px;
+    color: rgba(0, 189, 173, 0.10);
+    pointer-events: none;
+}
+
+.record-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.10);
+}
+
+.record-content {
+    padding: 26px;
+}
+
+.record-title {
+    font-size: 21px;
+    line-height: 1.35;
+    margin-bottom: 20px;
+    padding-right: 44px;
+}
+
+.record-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.record-holder {
+    background: rgba(0, 189, 173, 0.06);
+    border: 1px solid rgba(0, 189, 173, 0.12);
+    border-radius: 14px;
+    padding: 10px 14px;
+    flex: 1;
+}
+
+.holder-info h4 {
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.holder-info p {
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+.record-date {
+    background: rgba(255, 90, 0, 0.08);
+    color: var(--secondary-color);
+    border: 1px solid rgba(255, 90, 0, 0.14);
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.record-tags {
+    margin-top: 16px;
+}
+
+.record-category-tag,
+.record-age-tag {
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 11px;
+    letter-spacing: 0.2px;
+}
+
+/* разные цвета категорий */
+.record-card[data-category="sport"] .record-category-tag {
+    background: #00bdad;
+    color: white;
+}
+
+.record-card[data-category="study"] .record-category-tag {
+    background: #3b82f6;
+    color: white;
+}
+
+.record-card[data-category="konkurs"] .record-category-tag {
+    background: #ff7a33;
+    color: white;
+}
+
+.record-card[data-category="olimp"] .record-category-tag {
+    background: #8b5cf6;
+    color: white;
+}
+
+.dark-theme .record-card {
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    background:
+        radial-gradient(circle at top right, rgba(0, 189, 173, 0.14), transparent 35%),
+        var(--card-bg);
+}
+
+.dark-theme .record-footer {
+    border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark-theme .record-holder {
+    background: rgba(0, 189, 173, 0.10);
+    border-color: rgba(0, 189, 173, 0.18);
+}
+
+.dark-theme .record-date {
+    background: rgba(255, 90, 0, 0.12);
+    border-color: rgba(255, 90, 0, 0.20);
+}
+
+@media (max-width: 768px) {
+    .record-content {
+        padding: 20px;
+    }
+
+    .record-title {
+        font-size: 18px;
+        padding-right: 34px;
+    }
+
+    .record-card::after {
+        font-size: 32px;
+        top: 14px;
+        right: 14px;
+    }
+
+    .record-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .record-date {
+        align-self: flex-start;
+    }
+}
+/* ===== Модальное окно правил ===== */
+.rules-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.rules-modal.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.rules-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.rules-modal-dialog {
+    position: relative;
+    width: min(920px, 100%);
+    max-height: min(86vh, 900px);
+    background: var(--card-bg);
+    color: var(--dark-color);
+    border-radius: 20px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+    overflow: hidden;
+    z-index: 1;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.dark-theme .rules-modal-dialog {
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.rules-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--dark-color);
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+
+.rules-modal-close:hover {
+    background: rgba(0, 189, 173, 0.12);
+    color: var(--primary-color);
+}
+
+.dark-theme .rules-modal-close {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f5f5f7;
+}
+
+.rules-modal-content {
+    overflow-y: auto;
+    max-height: min(86vh, 900px);
+    padding: 36px 36px 32px;
+}
+
+.rules-modal-header {
+    padding-right: 48px;
+    margin-bottom: 28px;
+}
+
+.rules-modal-kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.rules-modal-header h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.1;
+    margin-bottom: 12px;
+}
+
+.rules-modal-subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--gray-color);
+    max-width: 720px;
+}
+
+.rules-document {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding-top: 24px;
+}
+
+.dark-theme .rules-document {
+    border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.rules-document h3 {
+    font-size: 20px;
+    margin-top: 24px;
+    margin-bottom: 10px;
+    color: var(--dark-color);
+}
+
+.dark-theme .rules-document h3 {
+    color: #f5f5f7;
+}
+
+.rules-document h3:first-child {
+    margin-top: 0;
+}
+
+.rules-document p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--dark-color);
+    margin-bottom: 14px;
+}
+
+.dark-theme .rules-document p {
+    color: #f5f5f7;
+}
+
+#footerRulesLink {
+    color: #a1a1a6;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+#footerRulesLink:hover {
+    color: white;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .rules-modal {
+        padding: 12px;
+        align-items: flex-end;
+    }
+
+    .rules-modal-dialog {
+        width: 100%;
+        max-height: 90vh;
+        border-radius: 18px 18px 0 0;
+    }
+
+    .rules-modal-content {
+        padding: 26px 20px 24px;
+        max-height: 90vh;
+    }
+
+    .rules-modal-header {
+        padding-right: 40px;
+    }
+
+    .rules-document h3 {
+        font-size: 18px;
+    }
+
+    .rules-document p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+}
+.rules-document ul {
+    margin: 0 0 18px 22px;
+    padding: 0;
+}
+
+.rules-document li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+    color: var(--dark-color);
+}
+
+.dark-theme .rules-document li {
+    color: #f5f5f7;
+}
+
+.rules-contact-box {
+    margin-top: 28px;
+    padding: 18px 20px;
+    border-radius: 14px;
+    background: rgba(0, 189, 173, 0.08);
+    border: 1px solid rgba(0, 189, 173, 0.16);
+}
+
+.rules-contact-box h3 {
+    margin-top: 0;
+}
+
+.rules-contact-box a {
+    color: var(--primary-dark);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.rules-contact-box a:hover {
+    text-decoration: underline;
+}
     </style>
 </head>
 <body>
-    <!-- Фиксированный хедер -->
+    <!-- Фиксированный хедер (без изменений) -->
     <header class="main-header">
         <div class="container">
             <div class="header-content">
                 <div class="logo" id="logo">
                     <div class="logo-icon">
-                        <i class="fas fa-trophy"></i>
+                        <img src="logo.png" alt="Логотип" class="site-logo">
                     </div>
                     <div class="logo-text">
                         <h1>Книга рекордов</h1>
@@ -1183,7 +1738,7 @@
                 <div class="header-right">
                     <div class="nav-buttons">
                         <button class="nav-button" id="aboutSchoolBtn">О школе</button>
-                        <button class="nav-button" id="contactsBtn">Контакты</button>
+                        <button class="nav-button" id="rulesBtn">Правила</button>
                     </div>
                     <button class="theme-toggle" id="themeToggle">
                         <i class="fas fa-moon"></i>
@@ -1200,7 +1755,7 @@
     <div class="mobile-nav" id="mobileNav">
         <div class="mobile-nav-buttons">
             <button class="mobile-nav-button" id="mobileAboutSchoolBtn">О школе</button>
-            <button class="mobile-nav-button" id="mobileContactsBtn">Контакты</button>
+            <button class="mobile-nav-button" id="mobileRulesBtn">Правила</button>
         </div>
     </div>
     
@@ -1208,38 +1763,27 @@
     <section class="hero-section" id="top-section">
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">Книга рекордов школы</h1>
-                <p class="hero-subtitle">Цифровой архив достижений учащихся МБОУ СОШ №26 г. Кирова. Основана в 2018 году, адрес: ул. Энтузиастов, 25.</p>
+                <h1 class="hero-title">Книга рекордов МБОУ СОШ №26</h1>
+                <p class="hero-subtitle">Достижения, которые вошли в историю</p>
                 
                 <div class="school-info">
                     <div class="info-card fade-in" style="animation-delay: 0.1s">
-                        <div class="info-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
+                        <div class="info-icon"><i class="fas fa-trophy"></i></div>
                         <div class="info-number" id="total-records">0</div>
                         <div class="info-label">Зафиксировано рекордов</div>
                     </div>
-                    
                     <div class="info-card fade-in" style="animation-delay: 0.2s">
-                        <div class="info-icon">
-                            <i class="fas fa-layer-group"></i>
-                        </div>
+                        <div class="info-icon"><i class="fas fa-layer-group"></i></div>
                         <div class="info-number" id="total-categories">0</div>
                         <div class="info-label">Категорий достижений</div>
                     </div>
-                    
                     <div class="info-card fade-in" style="animation-delay: 0.3s">
-                        <div class="info-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
+                        <div class="info-icon"><i class="fas fa-star"></i></div>
                         <div class="info-number" id="top-category">-</div>
-                        <div class="info-label">Самая популярная категория</div>
+                        <div class="info-label">Больше всего рекордов в категории</div>
                     </div>
-                    
                     <div class="info-card fade-in" style="animation-delay: 0.4s">
-                        <div class="info-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
+                        <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
                         <div class="info-number">2026</div>
                         <div class="info-label">Год запуска книги рекордов</div>
                     </div>
@@ -1248,8 +1792,8 @@
         </div>
     </section>
     
-    <!-- Секция фильтров -->
-    <section class="filters-section">
+    <!-- Секция фильтров (добавлен фильтр по возрасту) -->
+    <section class="filters-section" id="filters">
         <div class="container">
             <h2 class="section-title mb-40">Открытия наших учеников</h2>
             
@@ -1263,9 +1807,10 @@
             <div class="filters-container">
                 <div class="filter-group">
                     <h3>Фильтр по классам</h3>
-                    <div class="filter-buttons" id="class-filters">
-                        <button class="filter-btn active" data-class="all">Все классы</button>
-                        <!-- Кнопки классов будут добавлены через JavaScript -->
+                    <div class="class-select-wrap">
+                        <select id="class-filter-select" class="class-filter-select">
+                            <option value="all">Все классы</option>
+                        </select>
                     </div>
                 </div>
                 
@@ -1275,10 +1820,19 @@
                         <button class="filter-btn active" data-category="all">Все категории</button>
                         <button class="filter-btn" data-category="sport">Спорт</button>
                         <button class="filter-btn" data-category="study">Учёба</button>
-                        <button class="filter-btn" data-category="art">Искусство</button>
-                        <button class="filter-btn" data-category="science">Наука</button>
-                        <button class="filter-btn" data-category="creative">Творчество</button>
-                        <!--Добавление кнопки фильтра-->
+                        <button class="filter-btn small-text" data-category="konkurs">Конкурсы</button>
+                        <button class="filter-btn small-text" data-category="olimp">Олимпиады</button>
+                    </div>
+                </div>
+
+                <!-- НОВЫЙ ФИЛЬТР: ПО ВОЗРАСТУ -->
+                <div class="filter-group">
+                    <h3>Фильтр по возрасту</h3>
+                    <div class="filter-buttons" id="age-filters">
+                        <button class="filter-btn active" data-age="all">Все возраста</button>
+                        <button class="filter-btn" data-age="junior">Младшее звено</button>
+                        <button class="filter-btn" data-age="middle">Среднее звено</button>
+                        <button class="filter-btn" data-age="senior">Старшее звено</button>
                     </div>
                 </div>
             </div>
@@ -1288,8 +1842,10 @@
     <!-- Сетка рекордов -->
     <section class="records-section">
         <div class="container">
-            <div class="records-grid" id="records-container">
-                <!-- Рекорды будут загружены через JavaScript -->
+            <div class="records-grid" id="records-container"></div>
+            <!-- КНОПКА ЗАГРУЗИТЬ ЕЩЁ -->
+            <div class="load-more-container" id="loadMoreContainer">
+                <button class="load-more-btn" id="loadMoreBtn">Загрузить ещё</button>
             </div>
         </div>
     </section>
@@ -1308,14 +1864,156 @@
             <div class="about-school-content">
                 <h2 class="about-school-title">О нашей школе</h2>
                 <p class="about-school-text"><span class="about-school-highlight">МБОУ СОШ №26 города Кирова</span> открыла свои двери 1 сентября 2018 года. На сегодняшний день в школе учится и работает более 2000 человек.</p>
-                <p class="about-school-text">В начальной школе есть <span class="about-school-highlight">спортивные и кадетские классы</span>, которые помогают развивать не только интеллектуальные, но и физические способности детей, воспитывают дисциплину и патриотизм.</p>
-                <p class="about-school-text">В старших классах предусмотрено <span class="about-school-highlight">углублённое изучение отдельных предметов</span>, что позволяет учащимся качественно подготовиться к поступлению в вузы и определиться с будущей профессией.</p>
+                <p class="about-school-text">В нашей школе есть <span class="about-school-highlight">спортивные и кадетские классы</span>, которые помогают развивать не только интеллектуальные, но и физические способности детей, воспитывают дисциплину и патриотизм.</p>
+                <p class="about-school-text">В старших классах предусмотрено <span class="about-school-highlight">углублённое изучение отдельных предметов</span>, что позволяет учащимся качественно подготовиться к поступлению в ВУЗы и определиться с будущей профессией.</p>
                 <p class="about-school-text">В нашей школе имеется <span class="about-school-highlight">новейшее оборудование</span> для учебных лабораторий, компьютерных классов и творческих студий, что создаёт современную образовательную среду.</p>
                 <p class="about-school-text">Педагогический коллектив школы – это <span class="about-school-highlight">молодые активные профессионалы</span>, которые постоянно совершенствуют свои навыки, внедряют инновационные методики обучения и создают атмосферу сотрудничества и взаимопонимания.</p>
             </div>
         </div>
     </section>
-    
+    <!-- Модальное окно с правилами -->
+<div class="rules-modal" id="rulesModal" aria-hidden="true">
+    <div class="rules-modal-overlay" id="rulesModalOverlay"></div>
+    <div class="rules-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="rulesModalTitle">
+        <button class="rules-modal-close" id="rulesModalClose" aria-label="Закрыть правила">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="rules-modal-content">
+            <div class="rules-modal-header">
+                <p class="rules-modal-kicker">Официальный регламент</p>
+                <h2 id="rulesModalTitle">Правила книги рекордов</h2>
+                <p class="rules-modal-subtitle">
+                    Перед подачей рекорда необходимо ознакомиться с правилами. Отправка заявки означает согласие с условиями рассмотрения и публикации.
+                </p>
+            </div>
+
+            <div class="rules-document">
+    <h3>1. Общие положения</h3>
+    <p>1.1. Настоящее Положение определяет порядок рассмотрения, подтверждения и внесения достижений обучающихся в Книгу рекордов школы.</p>
+    <p>1.2. Книга рекордов школы создаётся в целях фиксации значимых, реальных и подтверждённых достижений обучающихся в различных сферах деятельности.</p>
+    <p>1.3. В Книгу рекордов школы могут быть внесены достижения в области учёбы, спорта, творчества, олимпиад, конкурсов, общественной деятельности и иных направлений, соответствующих целям и формату Книги рекордов.</p>
+    <p>1.4. Рассмотрение каждой заявки осуществляется индивидуально.</p>
+    <p>1.5. Окончательное решение о включении либо невключении достижения в Книгу рекордов школы принимается администрацией Книги рекордов школы.</p>
+
+    <h3>2. Требования к достижениям, заявляемым для внесения в Книгу рекордов</h3>
+    <p>2.1. Для рассмотрения могут приниматься только такие достижения, которые:</p>
+    <ul>
+        <li>являются реальными результатами деятельности обучающегося</li>
+        <li>могут быть подтверждены официально</li>
+        <li>соответствуют нормам школьной этики, правилам школы и общепринятым нормам поведения</li>
+        <li>не содержат оскорбительного, нецензурного, аморального, провокационного или опасного содержания</li>
+        <li>представляют интерес для Книги рекордов школы и соответствуют её концепции</li>
+    </ul>
+
+    <p>2.2. Не подлежат внесению в Книгу рекордов достижения, которые:</p>
+    <ul>
+        <li>основаны исключительно на устных заявлениях без подтверждающих материалов</li>
+        <li>содержат нецензурные, оскорбительные, унижающие или иные недопустимые формулировки</li>
+        <li>связаны с опасными, незаконными, вредными или травмоопасными действиями</li>
+        <li>противоречат правилам школы, нормам морали и здравому смыслу</li>
+        <li>не могут быть проверены либо вызывают сомнения в достоверности</li>
+        <li>являются абсурдными, бессмысленными либо не соответствуют формату школьной Книги рекордов</li>
+    </ul>
+
+    <h3>3. Подтверждение достижения</h3>
+    <p>3.1. Внесение достижения в Книгу рекордов школы допускается только при наличии официального подтверждения.</p>
+    <p>3.2. В качестве подтверждения достижения могут рассматриваться:</p>
+    <ul>
+        <li>грамоты, дипломы, сертификаты</li>
+        <li>официальные протоколы соревнований, олимпиад, конкурсов и иных мероприятий</li>
+        <li>результаты, заверенные образовательной организацией</li>
+        <li>письменное или иное официальное подтверждение учителя, тренера, классного руководителя, руководителя кружка, секции, проекта либо иного ответственного лица</li>
+        <li>иные документы и материалы, которые могут быть признаны надёжным подтверждением достижения</li>
+    </ul>
+
+    <p>3.3. В зависимости от характера достижения подтверждающим лицом может выступать:</p>
+    <ul>
+        <li>учитель физической культуры при рассмотрении спортивных достижений</li>
+        <li>учитель-предметник при рассмотрении учебных достижений</li>
+        <li>руководитель кружка, секции или проекта при рассмотрении творческих, научных и внеурочных достижений</li>
+        <li>организатор конкурса, олимпиады, соревнования или иного мероприятия при рассмотрении достижений, полученных вне школы</li>
+    </ul>
+
+    <p>3.4. Устные заявления без официального подтверждения не являются достаточным основанием для внесения достижения в Книгу рекордов школы.</p>
+
+    <h3>4. Право на запрос дополнительных материалов</h3>
+    <p>4.1. Администрация Книги рекордов школы вправе запросить дополнительные материалы, необходимые для проверки достоверности и обоснованности заявленного достижения.</p>
+    <p>4.2. К дополнительным материалам могут относиться:</p>
+    <ul>
+        <li>фотографии</li>
+        <li>сканы грамот, дипломов, сертификатов и иных документов</li>
+        <li>ссылки на официальные результаты, публикации или протоколы</li>
+        <li>подпись учителя, тренера или иного ответственного лица</li>
+        <li>иные сведения и материалы, необходимые для подтверждения достижения</li>
+    </ul>
+
+    <p>4.3. Непредоставление дополнительных материалов по запросу администрации Книги рекордов школы может являться основанием для отказа во внесении достижения в Книгу рекордов.</p>
+
+    <h3>5. Право администрации на отбор достижений</h3>
+    <p>5.1. Наличие подтверждающих документов или иных материалов не влечёт автоматического внесения достижения в Книгу рекордов школы.</p>
+    <p>5.2. Администрация Книги рекордов школы не обязана публиковать все заявленные достижения, в том числе при наличии официального подтверждения.</p>
+    <p>5.3. Каждое достижение оценивается с учётом его уместности, значимости, содержания, соответствия концепции Книги рекордов школы, а также интереса для публикации.</p>
+    <p>5.4. Администрация Книги рекордов школы вправе по своему усмотрению:</p>
+    <ul>
+        <li>принять достижение к публикации</li>
+        <li>отказать во внесении достижения</li>
+        <li>отложить рассмотрение до представления дополнительных материалов</li>
+        <li>не публиковать достижения, которые не соответствуют целям, формату или уровню Книги рекордов школы</li>
+    </ul>
+
+    <p>5.5. Администрация Книги рекордов школы вправе отказать во внесении достижения без обязательного подробного объяснения причин.</p>
+
+    <h3>6. Основания для отказа</h3>
+    <p>6.1. Основаниями для отказа во внесении достижения в Книгу рекордов школы являются:</p>
+    <ul>
+        <li>отсутствие подтверждающих документов или иных надёжных доказательств</li>
+        <li>предоставление неполной, недостоверной или сомнительной информации</li>
+        <li>отказ в предоставлении дополнительных материалов по запросу</li>
+        <li>несоответствие достижения тематике, целям или формату Книги рекордов школы</li>
+        <li>противоречие нормам школы, этическим требованиям и общепринятым правилам поведения</li>
+        <li>признание достижения спорным, странным, неуместным или не представляющим интереса для публикации</li>
+        <li>иные обстоятельства, по которым администрация Книги рекордов школы посчитает внесение достижения нежелательным</li>
+    </ul>
+
+    <h3>7. Проверка сведений</h3>
+    <p>7.1. Подача заявки на внесение достижения в Книгу рекордов школы означает согласие заявителя на проверку представленных сведений.</p>
+    <p>7.2. Администрация Книги рекордов школы вправе:</p>
+    <ul>
+        <li>проверять достоверность предоставленной информации</li>
+        <li>обращаться за уточнением сведений к учителям, тренерам, руководителям и организаторам мероприятий</li>
+        <li>сопоставлять представленные материалы с официальными результатами и документами</li>
+        <li>отказывать во внесении достижения при наличии сомнений в его достоверности</li>
+    </ul>
+
+    <h3>8. Удаление ранее внесённого достижения</h3>
+    <p>8.1. Достижение, ранее внесённое в Книгу рекордов школы, может быть удалено в случае, если:</p>
+    <ul>
+        <li>будет установлено, что представленные сведения являлись ложными</li>
+        <li>подтверждающие документы окажутся недостоверными или недействительными</li>
+        <li>внесение достижения было произведено ошибочно</li>
+        <li>после публикации выявятся обстоятельства, при которых сохранение достижения в Книге рекордов школы будет признано нежелательным</li>
+    </ul>
+
+    <h3>9. Заключительные положения</h3>
+    <p>9.1. Подача заявки на внесение достижения в Книгу рекордов школы означает согласие обучающегося с настоящим Положением.</p>
+    <p>9.2. Заявитель подтверждает, что ознакомлен с тем, что:</p>
+    <ul>
+        <li>каждое достижение подлежит рассмотрению, а не автоматическому внесению</li>
+        <li>отсутствие официального подтверждения является достаточным основанием для отказа</li>
+        <li>администрация Книги рекордов школы вправе запросить дополнительные материалы</li>
+        <li>наличие документов не означает обязательной публикации достижения</li>
+        <li>окончательное решение по всем спорным и иным случаям принимается администрацией Книги рекордов школы</li>
+    </ul>
+
+    <div class="rules-contact-box">
+        <h3>Связь по вопросам рекордов</h3>
+        <p>Есть вопросы или хотите подать рекорд? Почта для связи: <a href="mailto:holding-corp@yandex.ru">records-26@yandex.ru</a></p>
+    </div>
+</div>
+        </div>
+    </div>
+</div>
     <!-- Футер -->
     <footer id="contacts">
         <div class="container">
@@ -1324,8 +2022,8 @@
                     <h3>Книга рекордов</h3>
                     <p>Цифровая платформа для фиксации и демонстрации достижений учащихся школы. Мы верим, что каждый ученик уникален и достоин признания.</p>
                     <p>Проект основан в 2026 году.</p>
+                    <p><a href="#" id="footerRulesLink">Правила книги рекордов</a></p>
                 </div>
-                
                 <div class="footer-column">
                     <h3>Контакты</h3>
                     <ul>
@@ -1335,7 +2033,6 @@
                     </ul>
                 </div>
             </div>
-            
             <div class="footer-bottom">
                 <p>&copy; 2026 Книга рекордов МБОУ СОШ №26 г. Кирова.</p>
                 <p>Школа основана в 2018 году • Адрес: ул. Энтузиастов, 25</p>
@@ -1344,384 +2041,91 @@
     </footer>
     
     <script>
-        // Массив рекордов школы №26 г. Кирова с категориями и буквами классов
+        // ==================== ИСХОДНЫЕ ДАННЫЕ ====================
         const schoolRecords = [
-            {
-                id: 1,
-                name: "Кассихин Тимур",
-                class: "9А",
-                category: "sport",
-                achievement: "Самый длинный прыжок в длину: 2,7 м",
-                date: "Осень 2025"
-            },
-            {
-                id: 3,
-                name: "Беляев Дмитрий",
-                class: "1Д",
-                category: "science",
-                achievement: "Стал крутым ученым",
-                date: "01.01.1970"
-            },
-            {
-                id: 4,
-                name: "Филатов Даниил",
-                class: "11А",
-                category: "sport",
-                achievement: "Подтянулся 100 раз",
-                date: "01.01.1970"
-            },
-            {
-                id: 11,
-                name: "Иванов Иван",
-                class: "6К",
-                category: "sport",
-                achievement: "Отжался 1000 раз",
-                date: "01.01.1970"
-            },
-            {
-                id: 12,
-                name: "Жуйков Дмитрий",
-                class: "7А",
-                category: "study",
-                achievement: "Сделал крутой рекорд",
-                date: "01.01.1970"
-            }
+            { id: 1, name: "Силин Иван", class: "6К", category: "konkurs", achievement: "Победитель номинации вокал в конкурсе ЮНАРМИЯ АРТ", date: "2024" },
+            { id: 2, name: "Солоницына Вероника", class: "4А", category: "konkurs", achievement: "Школьникийские игры: лучший результат по стрельбе среди младшего звена", date: "2025" },
+            { id: 3, name: "Савинцева Виктория", class: "7Е", category: "konkurs", achievement: "Школьникийские игры: лучший результат по стрельбе среди среднего звена", date: "2025" },
+            { id: 4, name: "Паломодова Анастасия", class: "9Г", category: "konkurs", achievement: "Школьникийские игры: лучший результат по стрельбе среди старшего звена", date: "2025" }
         ];
 
-        // Названия категорий для отображения (в блоке рекорда, но не в фильтре)
+        // Названия категорий
         const categoryNames = {
             'sport': 'Спорт',
             'study': 'Учёба',
-            'art': 'Искусство',
-            'science': 'Наука',
-            'creative': 'Творчество'
+            'konkurs': 'Конкурсы',
+            'olimp': 'Олимпиады'
         };
 
-        // Элементы DOM
+        // ==================== ПАГИНАЦИЯ ====================
+        const ITEMS_PER_PAGE = 25;      // показывать по 25
+        let visibleCount = ITEMS_PER_PAGE;          // сколько сейчас показано
+        let currentFilteredRecords = [];            // текущий отфильтрованный массив
+
+        // ==================== ЭЛЕМЕНТЫ DOM ====================
         const recordsContainer = document.getElementById('records-container');
         const searchInput = document.getElementById('search-input');
-        const classFiltersContainer = document.getElementById('class-filters');
+        const classFilterSelect = document.getElementById('class-filter-select');
         const categoryFiltersContainer = document.getElementById('category-filters');
+        const ageFiltersContainer = document.getElementById('age-filters');   // новый
         const totalRecordsElement = document.getElementById('total-records');
         const totalCategoriesElement = document.getElementById('total-categories');
         const topCategoryElement = document.getElementById('top-category');
         const themeToggle = document.getElementById('themeToggle');
         const aboutSchoolBtn = document.getElementById('aboutSchoolBtn');
-        const contactsBtn = document.getElementById('contactsBtn');
+        const rulesBtn = document.getElementById('rulesBtn');
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileRulesBtn = document.getElementById('mobileRulesBtn');
+        const footerRulesLink = document.getElementById('footerRulesLink');
+        const rulesModal = document.getElementById('rulesModal');
+        const rulesModalOverlay = document.getElementById('rulesModalOverlay');
+        const rulesModalClose = document.getElementById('rulesModalClose');
         const mobileNav = document.getElementById('mobileNav');
         const mobileAboutSchoolBtn = document.getElementById('mobileAboutSchoolBtn');
-        const mobileContactsBtn = document.getElementById('mobileContactsBtn');
         const logo = document.getElementById('logo');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const loadMoreContainer = document.getElementById('loadMoreContainer');
 
-        // Текущие фильтры
+        // ==================== СОСТОЯНИЯ ФИЛЬТРОВ ====================
         let currentClassFilter = 'all';
         let currentCategoryFilter = 'all';
+        let currentAgeFilter = 'all';          // новый фильтр по возрасту
         let currentSearch = '';
 
-        // Флаг для отслеживания состояния мобильного меню
+        // Флаг мобильного меню
         let isMobileMenuOpen = false;
 
-        // Инициализация страницы
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM загружен, инициализируем страницу');
-            
-            // Инициализация фильтров по классам
-            initializeClassFilters();
-            
-            // Инициализация фильтров по категориям
-            initializeCategoryFilters();
-            
-            // Отображение всех записей
-            displayRecords(schoolRecords);
-            updateStats();
-            
-            // Обработчик поиска
-            searchInput.addEventListener('input', performSearch);
-            
-            // Инициализация темы
-            initTheme();
-            
-            // Инициализация навигационных кнопок
-            initNavigationButtons();
-            
-            // Инициализация мобильного меню
-            initMobileMenu();
-            
-            // Инициализация клика по логотипу
-            initLogoClick();
-            
-            // Проверка ширины экрана и адаптация фильтров
-            checkScreenSize();
-            
-            // Анимация появления элементов
-            animateElements();
-            
-            console.log('Страница инициализирована');
-        });
-
-        // Инициализация клика по логотипу
-        function initLogoClick() {
-            logo.addEventListener('click', function() {
-                // Прокручиваем к верху страницы
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                
-                // Закрываем мобильное меню если открыто
-                if (isMobileMenuOpen) {
-                    closeMobileMenu();
+        // Обсервер для анимации
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('scroll-show');
+                    observer.unobserve(entry.target);
                 }
             });
+        }, { threshold: 0.2 });
+
+        // ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
+        // Определение возрастной группы по классу
+        function getAgeGroup(className) {
+            const match = className.match(/\d+/);
+            if (!match) return null; // для учителей или записей без цифр
+            const classNum = parseInt(match[0], 10);
+            if (classNum >= 1 && classNum <= 4) return "Младшее звено";
+            if (classNum >= 5 && classNum <= 8) return "Среднее звено";
+            if (classNum >= 9 && classNum <= 11) return "Старшее звено";
+            return null; // вне диапазона
         }
 
-        // Проверка ширины экрана
-        function checkScreenSize() {
-            const filterButtons = document.querySelectorAll('.filter-buttons');
-            
-            if (window.innerWidth <= 1024) {
-                filterButtons.forEach(container => {
-                    container.classList.add('mobile-scroll');
-                });
-            } else {
-                filterButtons.forEach(container => {
-                    container.classList.remove('mobile-scroll');
-                });
-            }
-        }
-
-        // Обработчик изменения размера окна
-        window.addEventListener('resize', checkScreenSize);
-
-        // Инициализация темы с анимацией
-        function initTheme() {
-            console.log('Инициализация темы');
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-theme');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            }
-            
-            themeToggle.addEventListener('click', function() {
-                // Добавляем анимацию вращения
-                this.classList.add('rotate');
-                
-                // Меняем тему после небольшой задержки для начала анимации
-                setTimeout(() => {
-                    document.body.classList.toggle('dark-theme');
-                    
-                    if (document.body.classList.contains('dark-theme')) {
-                        localStorage.setItem('theme', 'dark');
-                        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                    } else {
-                        localStorage.setItem('theme', 'light');
-                        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                    }
-                    
-                    // Удаляем класс анимации после её завершения
-                    setTimeout(() => {
-                        this.classList.remove('rotate');
-                    }, 600);
-                }, 50);
-            });
-        }
-
-        // Функция закрытия мобильного меню
-        function closeMobileMenu() {
-            mobileNav.classList.remove('open');
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            isMobileMenuOpen = false;
-        }
-
-        // Функция открытия мобильного меню
-        function openMobileMenu() {
-            mobileNav.classList.add('open');
-            mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-            isMobileMenuOpen = true;
-        }
-
-        // Инициализация мобильного меню - исправленная версия
-        function initMobileMenu() {
-            console.log('Инициализация мобильного меню');
-            
-            mobileMenuBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                
-                if (isMobileMenuOpen) {
-                    closeMobileMenu();
-                } else {
-                    openMobileMenu();
-                }
-            });
-            
-            // Закрытие меню при клике на ссылку
-            mobileAboutSchoolBtn.addEventListener('click', function() {
-                closeMobileMenu();
-                document.getElementById('about-school').scrollIntoView({ 
-                    behavior: 'smooth' 
-                });
-            });
-            
-            mobileContactsBtn.addEventListener('click', function() {
-                closeMobileMenu();
-                document.getElementById('contacts').scrollIntoView({ 
-                    behavior: 'smooth' 
-                });
-            });
-            
-            // Закрытие меню при клике вне его
-            document.addEventListener('click', function(event) {
-                if (isMobileMenuOpen && 
-                    !mobileNav.contains(event.target) && 
-                    !mobileMenuBtn.contains(event.target)) {
-                    closeMobileMenu();
-                }
-            });
-            
-            // Запрещаем всплытие кликов внутри меню
-            mobileNav.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-            
-            // Закрытие меню при нажатии ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && isMobileMenuOpen) {
-                    closeMobileMenu();
-                }
-            });
-        }
-
-        // Инициализация навигационных кнопок
-        function initNavigationButtons() {
-            console.log('Инициализация навигационных кнопок');
-            aboutSchoolBtn.addEventListener('click', function() {
-                document.getElementById('about-school').scrollIntoView({ 
-                    behavior: 'smooth' 
-                });
-            });
-            
-            contactsBtn.addEventListener('click', function() {
-                document.getElementById('contacts').scrollIntoView({ 
-                    behavior: 'smooth' 
-                });
-            });
-        }
-
-        // Инициализация фильтров по классам
-        function initializeClassFilters() {
-            console.log('Инициализация фильтров по классам');
-            
-            // Получаем все уникальные номера классов из записей (без букв)
-            const allClasses = schoolRecords.map(record => {
-                // Извлекаем только цифровую часть класса
-                if (record.class === 'учителя') {
-                    return 'учителя';
-                } else {
-                    // Извлекаем только цифры из строки (например, "5А" -> "5")
-                    return record.class.replace(/\D/g, '');
-                }
-            });
-            
-            const uniqueClasses = [...new Set(allClasses)];
-            
-            // Сортируем классы: сначала учителя, затем 1-11 классы
-            uniqueClasses.sort((a, b) => {
-                if (a === 'учителя') return -1;
-                if (b === 'учителя') return 1;
-                
-                const numA = parseInt(a);
-                const numB = parseInt(b);
-                
-                return numA - numB;
-            });
-            
-            console.log('Уникальные классы (номера):', uniqueClasses);
-            
-            // Добавляем кнопки для каждого уникального номера класса
-            uniqueClasses.forEach(classNumber => {
-                const button = document.createElement('button');
-                button.className = 'filter-btn';
-                button.setAttribute('data-class', classNumber);
-                
-                // Определяем текст для кнопки
-                let buttonText = classNumber;
-                if (classNumber === 'учителя') {
-                    buttonText = 'Учителя';
-                } else {
-                    buttonText = `${classNumber} класс`;
-                }
-                
-                button.textContent = buttonText;
-                
-                button.addEventListener('click', function() {
-                    console.log('Нажата кнопка класса:', classNumber);
-                    // Убираем класс active у всех кнопок классов
-                    document.querySelectorAll('#class-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
-                    // Добавляем класс active нажатой кнопке
-                    this.classList.add('active');
-                    
-                    // Получаем фильтр
-                    currentClassFilter = this.getAttribute('data-class');
-                    
-                    // Фильтруем и отображаем записи
-                    filterAndDisplayRecords();
-                });
-                
-                classFiltersContainer.appendChild(button);
-            });
-            
-            // Обработчик для кнопки "Все классы"
-            const allClassesBtn = document.querySelector('#class-filters .filter-btn[data-class="all"]');
-            if (allClassesBtn) {
-                allClassesBtn.addEventListener('click', function() {
-                    console.log('Нажата кнопка "Все классы"');
-                    // Убираем класс active у всех кнопок классов
-                    document.querySelectorAll('#class-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
-                    // Добавляем класс active нажатой кнопке
-                    this.classList.add('active');
-                    
-                    // Получаем фильтр
-                    currentClassFilter = 'all';
-                    
-                    // Фильтруем и отображаем записи
-                    filterAndDisplayRecords();
-                });
-            }
-        }
-
-        // Инициализация фильтров по категориям
-        function initializeCategoryFilters() {
-            console.log('Инициализация фильтров по категориям');
-            
-            // Обработчики для всех кнопок категорий
-            document.querySelectorAll('#category-filters .filter-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    console.log('Нажата кнопка категории:', this.getAttribute('data-category'));
-                    // Убираем класс active у всех кнопок категорий
-                    document.querySelectorAll('#category-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
-                    // Добавляем класс active нажатой кнопке
-                    this.classList.add('active');
-                    
-                    // Получаем фильтр
-                    currentCategoryFilter = this.getAttribute('data-category');
-                    
-                    // Фильтруем и отображаем записи
-                    filterAndDisplayRecords();
-                });
-            });
-        }
-
-        // Функция отображения записей
-        function displayRecords(records) {
-            console.log('Отображение записей:', records.length);
+        // ==================== ОТОБРАЖЕНИЕ КАРТОЧЕК ====================
+        function renderRecords() {
+            // Берём срез отфильтрованного массива
+            const recordsToShow = currentFilteredRecords.slice(0, visibleCount);
             
             // Очищаем контейнер
             recordsContainer.innerHTML = '';
-            
-            // Если записей нет
-            if (records.length === 0) {
+
+            if (recordsToShow.length === 0) {
                 recordsContainer.innerHTML = `
                     <div class="no-results">
                         <i class="fas fa-search"></i>
@@ -1729,131 +2133,318 @@
                         <p>Попробуйте изменить параметры поиска или фильтра</p>
                     </div>
                 `;
-                return;
-            }
-            
-            // Создаем карточки для каждой записи
-            records.forEach((record, index) => {
-                const recordCard = document.createElement('div');
-                recordCard.className = 'record-card fade-in';
-                recordCard.style.animationDelay = `${index * 0.05}s`;
-                
-                // Получаем название категории
-                const categoryName = categoryNames[record.category] || record.category;
-                
-                // Определяем текст для класса
-                let classText = record.class;
-                if (record.class === 'учителя') {
-                    classText = 'Учителя';
-                }
-                
-                recordCard.innerHTML = `
-                    <div class="record-class"></div>
-                    <div class="record-content">
-                        <h3 class="record-title">${record.achievement}</h3>
-                        <div class="record-footer">
-                            <div class="record-holder">
-                                <div class="holder-info">
-                                    <h4>${record.name}</h4>
-                                    <p>${classText}</p>
+            } else {
+                recordsToShow.forEach((record, index) => {
+                    const categoryName = categoryNames[record.category] || record.category;
+                    const ageGroup = getAgeGroup(record.class);
+                    
+                    const card = document.createElement('div');
+                    card.className = 'record-card scroll-hidden';
+                    card.setAttribute('data-category', record.category);
+                    card.style.animationDelay = `${index * 0.05}s`;
+                    
+                    let tagsHTML = `<span class="record-category-tag">${categoryName}</span>`;
+                    if (ageGroup) {
+                        tagsHTML += `<span class="record-age-tag">${ageGroup}</span>`;
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="record-content">
+                            <h3 class="record-title">${record.achievement}</h3>
+                            <div class="record-footer">
+                                <div class="record-holder">
+                                    <div class="holder-info">
+                                        <h4>${record.name}</h4>
+                                        <p>${record.class}</p>
+                                    </div>
                                 </div>
+                                <div class="record-date">${record.date}</div>
                             </div>
-                            <div class="record-date">${record.date}</div>
+                            <div class="record-tags">
+                                ${tagsHTML}
+                            </div>
                         </div>
-                        <div class="record-category-tag">${categoryName}</div>
-                    </div>
-                `;
-                
-                recordsContainer.appendChild(recordCard);
-            });
+                    `;
+                    recordsContainer.appendChild(card);
+                    observer.observe(card);
+                });
+            }
+
+            // Управление видимостью кнопки "Загрузить ещё"
+            if (visibleCount >= currentFilteredRecords.length) {
+                loadMoreContainer.style.display = 'none';
+            } else {
+                loadMoreContainer.style.display = 'flex';
+            }
         }
 
-        // Функция фильтрации и отображения записей
+        // ==================== ФИЛЬТРАЦИЯ ====================
         function filterAndDisplayRecords() {
-            console.log('Фильтрация записей:', currentClassFilter, currentCategoryFilter, currentSearch);
-            
-            let filteredRecords = schoolRecords;
-            
-            // Применяем фильтр по классу
+            // Применяем все фильтры к исходному массиву
+            let filtered = schoolRecords;
+
+            // Фильтр по классу
             if (currentClassFilter !== 'all') {
-                if (currentClassFilter === 'учителя') {
-                    filteredRecords = filteredRecords.filter(record => record.class === 'учителя');
+                if (currentClassFilter === 'Учителя') {
+                    filtered = filtered.filter(r => r.class === 'Учителя');
                 } else {
-                    // Фильтруем по номеру класса (без учета буквы)
-                    filteredRecords = filteredRecords.filter(record => {
-                        // Извлекаем только цифры из класса
-                        const classNumber = record.class.replace(/\D/g, '');
-                        return classNumber === currentClassFilter;
+                    filtered = filtered.filter(r => {
+                        const classNum = r.class.replace(/\D/g, '');
+                        return classNum === currentClassFilter;
                     });
                 }
             }
-            
-            // Применяем фильтр по категории
+
+            // Фильтр по категории
             if (currentCategoryFilter !== 'all') {
-                filteredRecords = filteredRecords.filter(record => record.category === currentCategoryFilter);
+                filtered = filtered.filter(r => r.category === currentCategoryFilter);
             }
-            
-            // Применяем поиск
+
+            // Фильтр по возрасту
+            if (currentAgeFilter !== 'all') {
+                filtered = filtered.filter(r => {
+                    const group = getAgeGroup(r.class);
+                    if (currentAgeFilter === 'junior') return group === "Младшее звено";
+                    if (currentAgeFilter === 'middle') return group === "Среднее звено";
+                    if (currentAgeFilter === 'senior') return group === "Старшее звено";
+                    return false;
+                });
+            }
+
+            // Поиск
             if (currentSearch.trim() !== '') {
                 const searchLower = currentSearch.toLowerCase();
-                filteredRecords = filteredRecords.filter(record => 
-                    record.name.toLowerCase().includes(searchLower) || 
-                    record.achievement.toLowerCase().includes(searchLower) ||
-                    record.class.toLowerCase().includes(searchLower)
+                filtered = filtered.filter(r => 
+                    r.name.toLowerCase().includes(searchLower) ||
+                    r.achievement.toLowerCase().includes(searchLower) ||
+                    r.class.toLowerCase().includes(searchLower)
                 );
             }
-            
-            // Отображаем отфильтрованные записи
-            displayRecords(filteredRecords);
+
+            // Сохраняем отфильтрованный массив
+            currentFilteredRecords = filtered;
+
+            // Сбрасываем visibleCount до дефолта
+            visibleCount = ITEMS_PER_PAGE;
+
+            // Отрисовываем
+            renderRecords();
         }
 
-        // Функция выполнения поиска
+        // ==================== ОБНОВЛЕНИЕ СТАТИСТИКИ ====================
+        function updateStats() {
+            totalRecordsElement.textContent = schoolRecords.length;
+            const categories = [...new Set(schoolRecords.map(r => r.category))];
+            totalCategoriesElement.textContent = categories.length;
+
+            const categoryCounts = {};
+            schoolRecords.forEach(r => {
+                categoryCounts[r.category] = (categoryCounts[r.category] || 0) + 1;
+            });
+            let mostPopular = '';
+            let maxCount = 0;
+            for (const cat in categoryCounts) {
+                if (categoryCounts[cat] > maxCount) {
+                    maxCount = categoryCounts[cat];
+                    mostPopular = cat;
+                }
+            }
+            topCategoryElement.textContent = mostPopular ? (categoryNames[mostPopular] || mostPopular) : 'Нет данных';
+        }
+
+        // ==================== ИНИЦИАЛИЗАЦИЯ ФИЛЬТРОВ ====================
+        function initializeClassFilters() {
+            for (let classNumber = 1; classNumber <= 11; classNumber++) {
+                const option = document.createElement('option');
+                option.value = classNumber.toString();
+                option.textContent = `${classNumber} класс`;
+                classFilterSelect.appendChild(option);
+            }
+
+            classFilterSelect.addEventListener('change', function() {
+                currentClassFilter = this.value;
+                filterAndDisplayRecords();
+            });
+        }
+
+        function initializeCategoryFilters() {
+            document.querySelectorAll('#category-filters .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#category-filters .filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategoryFilter = this.getAttribute('data-category');
+                    filterAndDisplayRecords();
+                });
+            });
+        }
+
+        function initializeAgeFilters() {
+            document.querySelectorAll('#age-filters .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#age-filters .filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentAgeFilter = this.getAttribute('data-age');
+                    filterAndDisplayRecords();
+                });
+            });
+        }
+
+        // ==================== ПОИСК ====================
         function performSearch() {
             currentSearch = searchInput.value;
             filterAndDisplayRecords();
         }
 
-        // Функция обновления статистики
-        function updateStats() {
-            // Общее количество записей
-            totalRecordsElement.textContent = schoolRecords.length;
-            
-            // Количество уникальных категорий
-            const categories = [...new Set(schoolRecords.map(record => record.category))];
-            totalCategoriesElement.textContent = categories.length;
-            
-            // Самая популярная категория
-            const categoryCounts = {};
-            schoolRecords.forEach(record => {
-                categoryCounts[record.category] = (categoryCounts[record.category] || 0) + 1;
+        // ==================== ТЕМА ====================
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            themeToggle.addEventListener('click', function() {
+                this.classList.add('rotate');
+                setTimeout(() => {
+                    document.body.classList.toggle('dark-theme');
+                    if (document.body.classList.contains('dark-theme')) {
+                        localStorage.setItem('theme', 'dark');
+                        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    } else {
+                        localStorage.setItem('theme', 'light');
+                        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    }
+                    setTimeout(() => this.classList.remove('rotate'), 600);
+                }, 50);
             });
-            
-            let mostPopularCategory = '';
-            let maxCount = 0;
-            
-            for (const category in categoryCounts) {
-                if (categoryCounts[category] > maxCount) {
-                    maxCount = categoryCounts[category];
-                    mostPopularCategory = category;
-                }
-            }
-            
-            if (mostPopularCategory) {
-                // Берем короткое название категории для отображения
-                const shortCategoryName = categoryNames[mostPopularCategory] || mostPopularCategory;
-                topCategoryElement.textContent = shortCategoryName;
-            } else {
-                topCategoryElement.textContent = 'Нет данных';
-            }
-            
-            console.log('Статистика обновлена:', schoolRecords.length, categories.length, mostPopularCategory);
+        }
+        // ==================== МОДАЛКА ПРАВИЛ ====================
+function openRulesModal() {
+    rulesModal.classList.add('open');
+    rulesModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+}
+
+function closeRulesModal() {
+    rulesModal.classList.remove('open');
+    rulesModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+}
+
+function initRulesModal() {
+    rulesBtn.addEventListener('click', openRulesModal);
+
+    mobileRulesBtn.addEventListener('click', () => {
+        closeMobileMenu();
+        openRulesModal();
+    });
+
+    footerRulesLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        openRulesModal();
+    });
+
+    rulesModalClose.addEventListener('click', closeRulesModal);
+    rulesModalOverlay.addEventListener('click', closeRulesModal);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && rulesModal.classList.contains('open')) {
+            closeRulesModal();
+        }
+    });
+}
+        // ==================== НАВИГАЦИЯ ====================
+        function initNavigation() {
+            aboutSchoolBtn.addEventListener('click', () => document.getElementById('about-school').scrollIntoView({ behavior: 'smooth' }));
+
+            logo.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (isMobileMenuOpen) closeMobileMenu();
+            });
+
+            mobileAboutSchoolBtn.addEventListener('click', () => {
+                closeMobileMenu();
+                document.getElementById('about-school').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            const infoCards = document.querySelectorAll('.school-info .info-card');
+            infoCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
+                    if (isMobileMenuOpen) closeMobileMenu();
+                });
+            });
         }
 
-        // Анимация элементов при загрузке
-        function animateElements() {
-            const mottoElement = document.querySelector('.motto-text');
-            mottoElement.classList.add('fade-in');
+        // ==================== МОБИЛЬНОЕ МЕНЮ ====================
+        function initMobileMenu() {
+            mobileMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isMobileMenuOpen ? closeMobileMenu() : openMobileMenu();
+            });
+            document.addEventListener('click', (e) => {
+                if (isMobileMenuOpen && !mobileNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            });
+            mobileNav.addEventListener('click', (e) => e.stopPropagation());
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isMobileMenuOpen) closeMobileMenu();
+            });
         }
+
+        function closeMobileMenu() {
+            mobileNav.classList.remove('open');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            isMobileMenuOpen = false;
+        }
+
+        function openMobileMenu() {
+            mobileNav.classList.add('open');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            isMobileMenuOpen = true;
+        }
+
+        // ==================== ЗАГРУЗИТЬ ЕЩЁ ====================
+        function initLoadMore() {
+            loadMoreBtn.addEventListener('click', () => {
+                // Увеличиваем visibleCount, но не больше длины отфильтрованного массива
+                visibleCount = Math.min(visibleCount + ITEMS_PER_PAGE, currentFilteredRecords.length);
+                renderRecords();
+            });
+        }
+
+        // ==================== АДАПТАЦИЯ ФИЛЬТРОВ ====================
+        function checkScreenSize() {
+            const filterButtons = document.querySelectorAll('.filter-buttons');
+            filterButtons.forEach(container => {
+                if (window.innerWidth <= 1024) {
+                    container.classList.add('mobile-scroll');
+                } else {
+                    container.classList.remove('mobile-scroll');
+                }
+            });
+        }
+
+        // ==================== ЗАПУСК ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeClassFilters();
+            initializeCategoryFilters();
+            initializeAgeFilters();          // новый фильтр
+            initTheme();
+            initNavigation();
+            initRulesModal();
+            initMobileMenu();
+            initLoadMore();                  // кнопка загрузки
+            checkScreenSize();
+            window.addEventListener('resize', checkScreenSize);
+
+            // Первоначальная фильтрация и отрисовка
+            filterAndDisplayRecords();
+            updateStats();
+
+            // Поиск
+            searchInput.addEventListener('input', performSearch);
+        });
     </script>
 </body>
 </html>
