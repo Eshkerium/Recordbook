@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Книга рекордов | МБОУ СОШ №26</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: Arial, 'Segoe UI', sans-serif;
         }
         
         :root {
@@ -1353,14 +1351,12 @@
 }
 
 .record-card::after {
-    content: "\f091";
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
+    content: "🏆";
     position: absolute;
     top: 18px;
     right: 18px;
-    font-size: 42px;
-    color: rgba(0, 189, 173, 0.10);
+    font-size: 32px;
+    opacity: 0.18;
     pointer-events: none;
 }
 
@@ -2096,14 +2092,26 @@ body.modal-open {
         let isMobileMenuOpen = false;
 
         // Обсервер для анимации
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('scroll-show');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.2 });
+        let observer = null;
+
+        if ('IntersectionObserver' in window) {
+            observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('scroll-show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+        }
+
+function observeCard(card) {
+    if (observer) {
+        observer.observe(card);
+    } else {
+        card.classList.add('scroll-show');
+    }
+}
 
         // ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
         // Определение возрастной группы по классу
@@ -2166,7 +2174,7 @@ body.modal-open {
                         </div>
                     `;
                     recordsContainer.appendChild(card);
-                    observer.observe(card);
+                    observeCard(card);
                 });
             }
 
